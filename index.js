@@ -61,31 +61,132 @@ console.log(parent.isPrototypeOf(child));
 // };
 
 // ----------------------------6----------------------
-function Storage (items){
- this.items = items;
-}
+// function Storage(items) {
+//   this.items = items;
+// }
 
-Storage.prototype.getItems = function(){
-return this.items;
-}
+// Storage.prototype.getItems = function () {
+//   return this.items;
+// };
 
-Storage.prototype.addItem = function(newItem){
- this.items.push(newItem);
-}
+// Storage.prototype.addItem = function (newItem) {
+//   this.items.push(newItem);
+// };
 
-Storage.prototype.removeItem = function(item) {
-    const index = this.items.indexOf(item);
+// Storage.prototype.removeItem = function (item) {
+//   const index = this.items.indexOf(item);
 
-    if (index !== -1) { 
-      this.items.splice(index, 1);
-    }
-  }
+//   if (index !== -1) {
+//     this.items.splice(index, 1);
+//   }
+// };
 
-const storage = new Storage(['Нанитоиды', 'Пролонгер', 'Антигравитатор']);
-console.log(storage.getItems()); // ["Нанитоиды", "Пролонгер", "Антигравитатор"]
-storage.addItem('Дроид');
-console.log(storage.getItems()); // ["Нанитоиды", "Пролонгер", "Антигравитатор", "Дроид"]
-storage.removeItem('Пролонгер');
-console.log(storage.getItems()); // ["Нанитоиды", "Антигравитатор", "Дроид"]
+// const storage = new Storage(["Нанитоиды", "Пролонгер", "Антигравитатор"]);
+// console.log(storage.getItems()); // ["Нанитоиды", "Пролонгер", "Антигравитатор"]
+// storage.addItem("Дроид");
+// console.log(storage.getItems()); // ["Нанитоиды", "Пролонгер", "Антигравитатор", "Дроид"]
+// storage.removeItem("Пролонгер");
+// console.log(storage.getItems()); // ["Нанитоиды", "Антигравитатор", "Дроид"]
 
 // ----------------------------7----------------------
+function StringBuilder(baseValue) {
+  this.value = baseValue;
+}
+
+StringBuilder.prototype.getValue = function () {
+  return this.value;
+};
+StringBuilder.prototype.padEnd = function (str) {
+  return (this.value += str);
+};
+StringBuilder.prototype.padStart = function (str) {
+  return (this.value = str + this.value);
+};
+StringBuilder.prototype.padBoth = function (str) {
+  return (this.value = str + this.value + str);
+};
+
+const builder = new StringBuilder(".");
+console.log(builder.getValue()); // '.'
+builder.padStart("^");
+console.log(builder.getValue()); // '^.'
+builder.padEnd("^");
+console.log(builder.getValue()); // '^.^'
+builder.padBoth("=");
+console.log(builder.getValue()); // '=^.^='
+
+// ----------------------------9----------------------
+// class Car {
+//   brand;
+//   model;
+//   price;
+//   constructor({ brand, model, price }) {
+//     this.brand = brand;
+//     this.model = model;
+//     this.price = price;
+//   }
+// }
+
+// ----------------------------10----------------------
+// class Car {
+//   constructor({ brand, model, price }) {
+//     this.brand = brand;
+//     this.model = model;
+//     this.price = price;
+//   }
+
+//   getPrice() {
+//     return this.price;
+//   }
+//   changePrice(newPrice) {
+//     this.price = newPrice;
+//   }
+// }
+// new Car({ brand: 'Audi', model: 'Q3', price: 36000 })
+
+// ----------------------------11----------------------
+// class Car {
+//   #brand;
+//   constructor({ brand, model, price }) {
+//     this.#brand = brand;
+//     this.model = model;
+//     this.price = price;
+//   }
+
+//   getBrand() {
+//     return this.#brand;
+//   }
+
+//   changeBrand(newBrand) {
+//     this.#brand = newBrand;
+//   }
+// }
+
+// ----------------------------12----------------------
+
+class Storage {
+  #items;
+  constructor(items) {
+    this.#items = items;
+  }
+  getItems() {
+    return this.#items;
+  }
+
+  addItem(newItem) {
+    this.#items.push(newItem);
+  }
+  removeItem(item) {
+    const ItemIndex = this.#items.indexOf(item);
+    this.#items.splice(ItemIndex, 1);
+  }
+}
+
+const storage = new Storage(["Нанитоиды", "Пролонгер", "Антигравитатор"]);
+console.log(storage.getItems()); // ["Нанитоиды", "Пролонгер", "Антигравитатор"]
+storage.addItem("Дроид");
+console.log(storage.getItems()); // ["Нанитоиды", "Пролонгер", "Антигравитатор", "Дроид"]
+storage.removeItem("Пролонгер");
+console.log(storage.getItems()); // ["Нанитоиды", "Антигравитатор", "Дроид"]
+
+// ----------------------------13----------------------
