@@ -89,31 +89,35 @@ console.log(parent.isPrototypeOf(child));
 // console.log(storage.getItems()); // ["Нанитоиды", "Антигравитатор", "Дроид"]
 
 // ----------------------------7----------------------
-function StringBuilder(baseValue) {
-  this.value = baseValue;
-}
+// function StringBuilder(baseValue) {
+//   this.value = baseValue;
+// }
 
-StringBuilder.prototype.getValue = function () {
-  return this.value;
-};
-StringBuilder.prototype.padEnd = function (str) {
-  return (this.value += str);
-};
-StringBuilder.prototype.padStart = function (str) {
-  return (this.value = str + this.value);
-};
-StringBuilder.prototype.padBoth = function (str) {
-  return (this.value = str + this.value + str);
-};
+// StringBuilder.prototype.getValue = function () {
+//   return this.value;
+// };
 
-const builder = new StringBuilder(".");
-console.log(builder.getValue()); // '.'
-builder.padStart("^");
-console.log(builder.getValue()); // '^.'
-builder.padEnd("^");
-console.log(builder.getValue()); // '^.^'
-builder.padBoth("=");
-console.log(builder.getValue()); // '=^.^='
+// StringBuilder.prototype.padEnd = function (str) {
+//   this.value += str;
+// };
+
+// StringBuilder.prototype.padStart = function (str) {
+//   this.value = str + this.value;
+// };
+
+// StringBuilder.prototype.padBoth = function (str) {
+//   this.padStart(str);
+//   this.padEnd(str);
+// };
+
+// const builder = new StringBuilder(".");
+// console.log(builder.getValue()); // '.'
+// builder.padStart("^");
+// console.log(builder.getValue()); // '^.'
+// builder.padEnd("^");
+// console.log(builder.getValue()); // '^.^'
+// builder.padBoth("=");
+// console.log(builder.getValue()); // '=^.^='
 
 // ----------------------------9----------------------
 // class Car {
@@ -190,3 +194,105 @@ storage.removeItem("Пролонгер");
 console.log(storage.getItems()); // ["Нанитоиды", "Антигравитатор", "Дроид"]
 
 // ----------------------------13----------------------
+
+class StringBuilder{
+#value;
+constructor(baseValue){ 
+  this.#value = baseValue;
+  }
+  
+  getValue() { 
+  return this.#value;
+  }
+
+  padEnd(str) {
+    this.#value += str;
+ }
+ 
+  padStart(str) { 
+    this.#value = str + this.#value;
+  }
+
+  padBoth(str) {
+    this.padStart(str);
+    this.padEnd(str);
+  }
+}
+
+const builder = new StringBuilder('.');
+console.log(builder.getValue()); // '.'
+builder.padStart('^');
+console.log(builder.getValue()); // '^.'
+builder.padEnd('^');
+console.log(builder.getValue()); // '^.^'
+builder.padBoth('=');
+console.log(builder.getValue()); // '=^.^='
+
+// ----------------------------14----------------------
+// class Car {
+//   #model;
+//   #price;
+//   #brand;
+
+//   constructor({ brand, model, price }) {
+//     this.#brand = brand;
+//     this.#model = model;
+//     this.#price = price;
+//   }
+
+//   get brand() {
+//     return this.#brand;
+//   }
+
+//   set brand(newBrand) {
+//     this.#brand = newBrand;
+//   }
+
+//   get model() {
+//     return this.#model;
+//   }
+
+//   set model(newModel) {
+//     this.#model = newModel;
+//   }
+
+//   get price() {
+//     return this.#price;
+//   }
+
+//   set price(newPrice) {
+//     this.#price = newPrice;
+//   }
+// }
+
+// ----------------------------15----------------------
+class Car {
+ 
+  static MAX_PRICE = 50000;
+  #price;
+
+  constructor({ price }) {
+    this.#price = price;
+  }
+
+  get price() {
+    return this.#price;
+  }
+
+  set price(newPrice) {
+    if (newPrice > this.MAX_PRICE) {
+      return ;
+    }
+    return this.#price = newPrice;
+}
+
+}
+
+const audi = new Car({price: 35000});
+console.log(audi.price); // 35000
+
+audi.price = 49000;
+console.log(audi.price); // 49000
+
+audi.price = 51000;
+console.log(audi.price); // 49000
