@@ -195,21 +195,21 @@ console.log(storage.getItems()); // ["Нанитоиды", "Антигравит
 
 // ----------------------------13----------------------
 
-class StringBuilder{
-#value;
-constructor(baseValue){ 
-  this.#value = baseValue;
+class StringBuilder {
+  #value;
+  constructor(baseValue) {
+    this.#value = baseValue;
   }
-  
-  getValue() { 
-  return this.#value;
+
+  getValue() {
+    return this.#value;
   }
 
   padEnd(str) {
     this.#value += str;
- }
- 
-  padStart(str) { 
+  }
+
+  padStart(str) {
     this.#value = str + this.#value;
   }
 
@@ -219,13 +219,13 @@ constructor(baseValue){
   }
 }
 
-const builder = new StringBuilder('.');
+const builder = new StringBuilder(".");
 console.log(builder.getValue()); // '.'
-builder.padStart('^');
+builder.padStart("^");
 console.log(builder.getValue()); // '^.'
-builder.padEnd('^');
+builder.padEnd("^");
 console.log(builder.getValue()); // '^.^'
-builder.padBoth('=');
+builder.padBoth("=");
 console.log(builder.getValue()); // '=^.^='
 
 // ----------------------------14----------------------
@@ -267,7 +267,6 @@ console.log(builder.getValue()); // '=^.^='
 
 // ----------------------------15----------------------
 class Car {
- 
   static MAX_PRICE = 50000;
   #price;
 
@@ -280,15 +279,14 @@ class Car {
   }
 
   set price(newPrice) {
-    if (newPrice > this.MAX_PRICE) {
-      return ;
+    if (newPrice > Car.MAX_PRICE) {
+      return;
     }
-    return this.#price = newPrice;
+    return (this.#price = newPrice);
+  }
 }
 
-}
-
-const audi = new Car({price: 35000});
+const audi = new Car({ price: 35000 });
 console.log(audi.price); // 35000
 
 audi.price = 49000;
@@ -296,3 +294,5 @@ console.log(audi.price); // 49000
 
 audi.price = 51000;
 console.log(audi.price); // 49000
+
+// ----------------------------16----------------------
