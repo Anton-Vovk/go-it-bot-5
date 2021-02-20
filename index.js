@@ -266,33 +266,169 @@ console.log(builder.getValue()); // '=^.^='
 // }
 
 // ----------------------------15----------------------
-class Car {
-  static MAX_PRICE = 50000;
-  #price;
+// class Car {
+//   static MAX_PRICE = 50000;
+//   #price;
 
-  constructor({ price }) {
-    this.#price = price;
+//   constructor({ price }) {
+//     this.#price = price;
+//   }
+
+//   get price() {
+//     return this.#price;
+//   }
+
+//   set price(newPrice) {
+//     if (newPrice > Car.MAX_PRICE) {
+//       return;
+//     }
+//     return (this.#price = newPrice);
+//   }
+// }
+
+// const audi = new Car({ price: 35000 });
+// console.log(audi.price); // 35000
+
+// audi.price = 49000;
+// console.log(audi.price); // 49000
+
+// audi.price = 51000;
+// console.log(audi.price); // 49000
+
+// ----------------------------16----------------------
+// class Car {
+//   static #MAX_PRICE = 50000;
+//   // Пиши код ниже этой строки
+//  static checkPrice(price){
+//     if (price > this.#MAX_PRICE){
+//       return 'Внимание! Цена превышает допустимую.';
+//     }
+//     return 'Всё хорошо, цена в порядке.';
+//     }
+//   // Пиши код выше этой строки
+//   constructor({ price }) {
+//     this.price = price;
+//   }
+// }
+
+// const audi = new Car({ price: 36000 });
+// const bmw = new Car({ price: 64000 });
+
+// console.log(Car.checkPrice(audi.price)); // Всё хорошо, цена в порядке.
+// console.log(Car.checkPrice(bmw.price)); // Внимание! Цена превышает допустимую.
+
+// ----------------------------17----------------------
+// class User {
+//   email;
+
+//   constructor(email) {
+//     this.email = email;
+//   }
+
+//   get email() {
+//     return this.email;
+//   }
+
+//   set email(newEmail) {
+//     this.email = newEmail;
+//   }
+// }
+// class Admin extends User {
+//   static AccessLevel = {
+//     BASIC: "basic",
+//     SUPERUSER: "superuser",
+//   };
+// }
+
+// ----------------------------18----------------------
+// class User {
+//   email;
+
+//   constructor(email) {
+//     this.email = email;
+//   }
+
+//   get email() {
+//     return this.email;
+//   }
+
+//   set email(newEmail) {
+//     this.email = newEmail;
+//   }
+// }
+
+// class Admin extends User {
+
+//   accessLevel;
+//   static AccessLevel = {
+//     BASIC: "basic",
+//     SUPERUSER: "superuser",
+//   };
+//   constructor({ email, accessLevel }) {
+//     super(email);
+//     this.accessLevel = accessLevel;
+//   }
+
+// }
+
+// const mango = new Admin({
+//   email: "mango@mail.com",
+//   accessLevel: Admin.AccessLevel.SUPERUSER,
+// });
+
+// console.log(mango.email); // mango@mail.com
+// console.log(mango.accessLevel); // superuser
+
+// ----------------------------19----------------------
+
+class User {
+  email;
+
+  constructor(email) {
+    this.email = email;
   }
 
-  get price() {
-    return this.#price;
+  get email() {
+    return this.email;
   }
 
-  set price(newPrice) {
-    if (newPrice > Car.MAX_PRICE) {
-      return;
+  set email(newEmail) {
+    this.email = newEmail;
+  }
+}
+class Admin extends User {
+  
+  blacklistedEmails = [];
+  static AccessLevel = {
+    BASIC: "basic",
+    SUPERUSER: "superuser",
+  };
+  accessLevel;
+  constructor({ email, accessLevel }) {
+    super(email);
+    this.accessLevel = accessLevel;
+  }
+
+  blacklist(email) {
+    this.blacklistedEmails.push(email);
+  }
+
+  isBlacklisted(email) {
+    if (this.blacklistedEmails.includes(email)){
+      return true;
     }
-    return (this.#price = newPrice);
+    return false;
   }
 }
 
-const audi = new Car({ price: 35000 });
-console.log(audi.price); // 35000
+const mango = new Admin({
+  email: "mango@mail.com",
+  accessLevel: Admin.AccessLevel.SUPERUSER,
+});
 
-audi.price = 49000;
-console.log(audi.price); // 49000
-
-audi.price = 51000;
-console.log(audi.price); // 49000
-
-// ----------------------------16----------------------
+console.log(mango.email); // mango@mail.com
+console.log(mango.accessLevel); // superuser
+mango.blacklist("poly@mail.com");
+console.log(mango.blacklistedEmails); // 'poly@mail.com'
+console.log(mango.isBlacklisted("mango@mail.com")); //  false
+console.log(mango.isBlacklisted("poly@mail.com")); // true
